@@ -1,18 +1,23 @@
-import axios from 'axios'
-import { renderCode } from './components/CodeViewer';
-import { renderGroup } from './components/GroupViewer';
-import { renderLabel } from './components/LabelViewer';
-import { renderPlot } from './components/PlotViewer';
-import './scss/styles.scss'
-import { Controller, Filter } from './types'
-import * as bootstrap from "bootstrap";
+import { renderCode } from "./components/CodeViewer";
+import { renderGroup } from "./components/GroupViewer";
+import { renderLabel } from "./components/LabelViewer";
+import { renderPlot } from "./components/PlotViewer";
+import "./scss/styles.scss";
+import { Controller } from "./types";
 
-const fetched = await axios.get('http://localhost:3000')
-const controller = new Controller(fetched.data);
+import { response } from "./response";
 
-renderCode(controller.data[0]);
+// const fetched = await axios.get('http://localhost:3000')
+const fetched = response;
+
+const controller = new Controller(
+    fetched.data,
+    fetched.centroid,
+    fetched.labels,
+    fetched.group
+);
+
+renderCode(undefined);
 renderPlot(controller);
-renderLabel(controller)
+renderLabel(controller);
 renderGroup(controller);
-
-console.log(controller.data)

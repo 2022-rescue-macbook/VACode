@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SERIN BABO</title>
+  <title>VACode</title>
 </head>
 
 <body>
-  <header class="bd-header navbar-light py-1 d-flex align-items-stretch border-bottom border-light">
+  <header class="px-1 bd-header navbar-light py-0 d-flex align-items-stretch border-bottom border-light">
     <div class="container-fluid d-flex align-items-center">
       <h1 class="d-flex align-items-center fs-4 text-white mb-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="38" height="30" fill="currentColor"
@@ -17,7 +17,7 @@
             d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
         </svg>
         <span class="navbar-text">
-          Serinbabo
+          VACode
         </span>
       </h1>
       <a href="https://github.com/2022-rescue-macbook/2022-rescue-macbook" class="ms-auto link-light" hreflang="ar">
@@ -30,11 +30,11 @@
       </a>
     </div>
   </header>
-  <div class="container-fluid py-4 px-3 mx-auto">
+  <div class="container-fluid pt-4 px-4 mx-auto">
     <div class="row">
       <div class="col-5 svg-container" id="plotViewer">
         <h4>Plot View</h4>
-        <svg id="plot" viewBox="0 0 600 600" preserveAspectRatio="xMinYMin meet" class="svg-content-responsive">
+        <svg id="plot" viewBox="0 0 1000 1000" preserveAspectRatio="xMinYMin meet" class="svg-content-responsive">
         </svg>
       </div>
       <div class="col-3">
@@ -45,29 +45,33 @@
           <svg id="label" viewBox="0 0 600 100" preserveAspectRatio="xMinYMin meet" class="svg-content-responsive">
           </svg>
         </div>
-        <div class="row" id="groupViewer">
-          <h4>Group View</h4>
-          <div class="input-group">
-            <input id="search-box" type="search" class="form-control rounded" placeholder="Student Name" aria-label="Search"
-              aria-describedby="search-addon" />
-            <button id="search-button" type="button" class="btn btn-primary">Search</button>
+        <div class="row mt-4" id="groupViewer">
+          <div class="col">
+            <h4>Group View</h4>
           </div>
-          <div id="groupList"></div>
-        </div>
 
+          <div class="col input-group mb-2">
+            <input id="search-box" type="search" class="form-control rounded" placeholder="Search Student Name"
+              aria-label="Search" aria-describedby="search-addon" />
+
+          </div>
+        </div>
+        <div class="row mx-0" id="groupList"></div>
       </div>
       <div class="col-4" id="codeViewer">
         <h4>Code View</h4>
       </div>
-
-
-
     </div>
-    <footer class="mt-4">
-      <div class="border-bottom pb-3 mb-3"></div>
-      <p class="text-center text-muted">&copy; 2022 SKKU AI-Education Hackathon</p>
-    </footer>
-    <script type="module" src="./main.ts"></script>
+
+
+
+
+  </div>
+  <footer>
+    <div class="border-bottom pb-3 mb-3"></div>
+    <p class="text-center text-muted">&copy; 2022 SKKU AI-Education Hackathon</p>
+  </footer>
+  <script type="module" src="./main.ts"></script>
 </body>
 
 </html>

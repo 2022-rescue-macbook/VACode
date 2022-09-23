@@ -1,12 +1,31 @@
-@import "~bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
 
-#codeViewer {
+
+h4 {
+    font-weight : 600;
+}
+
+pre code {
     overflow-x: scroll;
     overflow-y: scroll;
     height: 80vh;
 }
 
-svg { 
+#groupList {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    max-height: 60vh;
+}
+
+code {
+    background-color: #eaecef;
+}
+
+svg {
     max-width: 100%;
 }
 
@@ -14,16 +33,26 @@ svg {
     opacity: 0.5;
 }
 
-header{
-    background-color: #7FB77E;
-    padding-left : $spacer * 7 !important;
-    padding-right : $spacer * 7 !important;
+header {
+    background-color: #7fb77e;
+    padding-left: $spacer * 7 !important;
+    padding-right: $spacer * 7 !important;
 }
 
-a.link-light{
+a.link-light {
     text-decoration: none !important;
 }
 
-#groupViewer > div.card > div > div.col-9.px-2 > div > div{
+#groupViewer > div.card > div > div.col-9.px-2 > div > div {
     font-size: 8pt !important;
 }
+
+#name { 
+    font-size: small;
+}
+
+.card-title {
+    font-weight: 700
+}
+
+@import "bootstrap/scss/utilities/api";

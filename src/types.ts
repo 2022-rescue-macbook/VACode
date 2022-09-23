@@ -1,10 +1,17 @@
+export interface Response {
+    data: UserData[];
+    centroid: number[];
+    labels: number[];
+    group: number[];
+}
+
 export interface UserData {
     id: number;
     name: string;
     x: number;
     y: number;
-    label: string;
-    group: string;
+    label: number;
+    group: number;
     code: string;
 }
 
@@ -17,17 +24,33 @@ export interface Filter {
 
 export class Controller {
     data: UserData[];
+    centroid: number[];
+    labels: string[];
+    groups: string[];
 
-    constructor(fetchData: UserData[]) {
+    constructor(
+        fetchData: UserData[],
+        centroid: number[],
+        labels: number[],
+        groups: number[]
+    ) {
         this.data = fetchData;
+        this.centroid = centroid;
+        this.labels = labels.map((d) => `l${d}`);
+        this.groups = groups.map((d) => `g${String(d)}`);
+    }
+    getCentroid(label: string): UserData {
+        return this.data.filter(
+            (d) => d.id === Number(this.centroid[Number(label.slice(1))])
+        )[0];
     }
 
     getLabels() {
-        return [...new Set(this.data.map((d) => d.label))].sort();
+        return this.labels;
     }
 
     getGroups() {
-        return [...new Set(this.data.map((d) => d.group))].sort();
+        return this.groups;
     }
 
     getFilteredData(filter: Filter) {
@@ -35,9 +58,9 @@ export class Controller {
             case "none":
                 return this.data;
             case "label":
-                return this.data.filter((d) => d.label === filter.label);
+                return this.data.filter((d) => `l${d.label}` === filter.label);
             case "group":
-                return this.data.filter((d) => d.group === filter.group);
+                return this.data.filter((d) => `g${d.group}` === filter.group);
             case "single":
                 return this.data.filter((d) => d.id === filter.id);
         }

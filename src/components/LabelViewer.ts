@@ -6,10 +6,15 @@ import { toggleOpacity } from "./PlotViewer";
 const legend = d3.select("#label").append("g");
 const margin = { top: 20, left: 30, right: 30, bottom: 20 };
 
+export const unselectLabel = () => {
+    d3.selectAll(".legendIcon").transition().duration(100).attr("opacity", 1);
+};
+
 export const renderLabel = (controller: Controller) => {
     const colorScheme = d3
         .scaleOrdinal(d3.schemeCategory10)
-        .domain(controller.data.map((d) => d.label));
+        .domain(controller.getLabels());
+        
     legend
         .attr("transform", `translate(${margin.left}, ${margin.top})`)
         .selectAll("g")
@@ -25,8 +30,8 @@ export const renderLabel = (controller: Controller) => {
                 .attr("fill", (d) => colorScheme(d))
         )
         .on("click", (_, d) => {
-            
-            renderCode(controller.data.filter(x => x.label === d)[0])
+            const centroid = controller.getCentroid(d);
+            renderCode(centroid);
             toggleOpacity(controller, { type: "label", label: d } as Filter);
             d3.selectAll(".legendIcon")
                 .transition()
