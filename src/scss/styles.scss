@@ -1,1 +1,29 @@
 @import "~bootstrap/scss/bootstrap";
+
+#codeViewer {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: 80vh;
+}
+
+svg { 
+    max-width: 100%;
+}
+
+.filtered {
+    opacity: 0.5;
+}
+
+header{
+    background-color: #7FB77E;
+    padding-left : $spacer * 7 !important;
+    padding-right : $spacer * 7 !important;
+}
+
+a.link-light{
+    text-decoration: none !important;
+}
+
+#groupViewer > div.card > div > div.col-9.px-2 > div > div{
+    font-size: 8pt !important;
+}

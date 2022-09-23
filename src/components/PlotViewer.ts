@@ -1,9 +1,10 @@
 import * as d3 from "d3";
-import { selectedFilter, fetchData } from "../states";
+import { Controller, Filter } from "../types";
+import { renderCode } from "./CodeViewer";
 
 const svg = d3.select("#plot");
 
-const margin = { top: 20, left: 20, right: 20, bottom: 20 };
+const margin = { top: 20, left: 30, right: 30, bottom: 20 };
 const width = 600 - margin.left - margin.right;
 const height = 600 - margin.top - margin.bottom;
 
@@ -12,30 +13,62 @@ svg.attr("width", width + margin.left + margin.right).attr(
     height + margin.top + margin.bottom
 );
 
-const xScale = d3
-    .scaleLinear()
-    .range([0, width])
-    .domain([0, d3.max(fetchData, (d) => d.x) as number]);
-const yScale = d3
-    .scaleLinear()
-    .range([height, 0])
-    .domain([0, d3.max(fetchData, (d) => d.y) as number]);
-const colorScheme = d3
-    .scaleOrdinal(d3.schemeCategory10)
-    .domain(fetchData.map((d) => d.label));
+export const toggleOpacity = (controller: Controller, filter: Filter) => {
+    
+    const filteredData = controller.getFilteredData(filter);
+    d3.selectAll("#dot")
+        .data(controller.data)
+        .transition()
+        .duration(100)
+        .attr("opacity", (d) => {
+            if (filteredData.includes(d) || filter.type === "none") {
+                return 1;
+            }
+            return 0.2;
+        })
+        .attr("r", (d) => {
+            if (filteredData.includes(d) && filter.type !== "none") {
+                return 6;
+            }
+            return 4;
+        });
+};
 
-const xAxis = d3.axisBottom(xScale);
-const yAxis = d3.axisLeft(yScale);
+export const renderPlot = (controller: Controller) => {
+    const xScale = d3
+        .scaleLinear()
+        .range([0, width])
+        .domain([0, d3.max(controller.data, (d) => d.x) as number]);
+    const yScale = d3
+        .scaleLinear()
+        .range([height, 0])
+        .domain([0, d3.max(controller.data, (d) => d.y) as number]);
+    const colorScheme = d3
+        .scaleOrdinal(d3.schemeCategory10)
+        .domain(controller.data.map((d) => d.label));
 
-svg.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+    svg
+        .append("rect")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("fill", "white")
+        .on("click", () => {
+            toggleOpacity(controller, { type: "none" } as Filter);
+        })
 
-svg.append("g").call(yAxis);
+    svg.append("g")
+        .selectAll("#dot")
+        .data(controller.data)
+        .join("circle")
+        .attr("id", "dot")
+        .attr("cx", (d) => xScale(d.x) + margin.left)
+        .attr("cy", (d) => yScale(d.y) + margin.top)
+        .attr("r", 4)
+        .style("fill", (d) => colorScheme(d.label))
+        .on("click", (_, d) => {
+            toggleOpacity(controller, { type: "single", id: d.id } as Filter);
+            renderCode(d)
+        });
 
-svg.append("g")
-    .selectAll("dot")
-    .data(fetchData)
-    .join("circle")
-    .attr("cx", (d) => xScale(d.x))
-    .attr("cy", (d) => yScale(d.y))
-    .attr("r", 1)
-    .style("fill", (d) => colorScheme(d.label));
+    
+};
