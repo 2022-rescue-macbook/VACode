@@ -20,3 +20,6 @@ VACode is a visual analytics system that allows instructors to analyze learner-s
 # Awards
 
 1th prize winner at 2022 SKKU AI-SW Education Hackathon
+
+<img src="https://user-images.githubusercontent.com/53158200/193191925-e0b6a16b-c24a-42a2-b1df-f761449a92b0.png" width="350" />
+
