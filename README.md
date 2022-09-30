@@ -7,7 +7,7 @@ VACode is a visual analytics system that allows instructors to analyze learner-s
 
 
 # Live Demo
-[Web Demo](https://2022-rescure-macbook.github.io/VACode)
+[Web Demo](https://2022-rescue-macbook.github.io/VACode/)
 
 # Developers
 
